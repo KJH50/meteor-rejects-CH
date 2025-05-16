@@ -1,0 +1,32 @@
+package anticope.rejects.commands;
+
+import anticope.rejects.arguments.ClientPosArgumentType;
+import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import meteordevelopment.meteorclient.commands.Command;
+import net.minecraft.command.CommandSource;
+import net.minecraft.util.math.Vec3d;
+
+public class TeleportCommand extends Command {
+
+    public TeleportCommand() {
+        super("teleport", "向服务器发送新位置的包。允许短距离传送。", "tp");
+    }
+
+    @Override
+    public void build(LiteralArgumentBuilder<CommandSource> builder) {
+        builder.then(argument("pos", ClientPosArgumentType.pos()).executes(ctx -> {
+            Vec3d pos = ClientPosArgumentType.getPos(ctx, "pos");
+            mc.player.updatePosition(pos.getX(), pos.getY(), pos.getZ());
+            return SINGLE_SUCCESS;
+        }));
+
+        builder.then(argument("pos", ClientPosArgumentType.pos()).then(argument("yaw", FloatArgumentType.floatArg()).then(argument("pitch", FloatArgumentType.floatArg()).executes(ctx -> {
+            Vec3d pos = ClientPosArgumentType.getPos(ctx, "pos");
+            float yaw = FloatArgumentType.getFloat(ctx, "yaw");
+            float pitch = FloatArgumentType.getFloat(ctx, "pitch");
+            mc.player.updatePositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), yaw, pitch);
+            return SINGLE_SUCCESS;
+        }))));
+    }
+}
