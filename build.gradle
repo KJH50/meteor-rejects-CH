@@ -43,7 +43,7 @@ dependencies {
     modCompileOnly "meteordevelopment:baritone:${project.baritone_version}-SNAPSHOT"
 
 	// seed .locate and ore sim
-	extraLibs('com.seedfinding:mc_math:ffd2edcfcc0d18147549c88cc7d8ec6cf21b5b91') { transitive = false }
+	extraLibs('com.seedfinding:mc_math:1.171.0') { transitive = false }
 	extraLibs('com.seedfinding:mc_seed:1ead6fcefe7e8de4b3d60cd6c4e993f1e8f33409') { transitive = false }
 	extraLibs('com.seedfinding:mc_core:1.210.0') { transitive = false }
 	extraLibs('com.seedfinding:mc_noise:7e3ba65e181796c4a2a1c8881d840b2254b92962') { transitive = false }
